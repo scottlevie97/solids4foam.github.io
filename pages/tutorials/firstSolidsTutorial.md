@@ -1,4 +1,5 @@
 ---
+permalink: firstSolid.html
 sort: 1
 ---
 

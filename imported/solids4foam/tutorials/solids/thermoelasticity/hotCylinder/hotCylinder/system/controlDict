@@ -1,0 +1,77 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | foam-extend: Open Source CFD                    |
+|  \\    /   O peration     | Version:     3.2                                |
+|   \\  /    A nd           | Web:         http://www.foam-extend.org         |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     solids4Foam;
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         1000;
+
+deltaT          1000;
+
+writeControl    timeStep;
+
+writeInterval   1;
+
+cycleWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression uncompressed;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable yes;
+
+functions
+{
+    analyticalHotCylinder
+    {
+        type    hotCylinderAnalyticalSolution;
+
+        // Inner pipe radius
+        rInner  0.5;
+
+        // Outer pipe radius
+        rOuter  0.7;
+
+        // Inner pipe temperature
+        TInner  100;
+
+        // Outer pipe temperature
+        TOuter  0;
+
+        // Young's modulus
+        E       200e9;
+
+        // Poisson's ratio
+        nu      0.3;
+
+        // Coefficient for linear thermal expansion
+        alpha   1e-5;
+    }
+}
+
+// ************************************************************************* //

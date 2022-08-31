@@ -17,4 +17,4 @@ title: Tutorials
 
 ## FSI cases
 
-- Here is the link to the [first FSI case](firstSolid.html)
+- Here is the link to the [first solid imported case](firstSolidimported.html)

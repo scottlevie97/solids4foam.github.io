@@ -1,0 +1,1 @@
+/home/scottlevie/solids4FoamDelevopment/solids4foam.github.io/imported/solids4foam/tutorials/solids/thermoelasticity/hotSphere/README.md

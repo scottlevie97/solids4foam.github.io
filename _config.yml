@@ -29,4 +29,8 @@ exclude:
   - package-lock.json
   - webpack.config.js
   - jekyll-rtd-theme.gemspec
+  - imported
+
+subprojects:
+  - imported/solids4foam/tutorials/solids/thermoelasticity/hotSphere
 

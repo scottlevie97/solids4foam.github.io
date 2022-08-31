@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+# Source solids4Foam scripts
+source solids4FoamScripts.sh
+
+# Check case version is correct
+solids4Foam::convertCaseFormat .
+
+solids4Foam::caseOnlyRunsWithFoamExtend
+
+if ! command -v cartesianMesh &> /dev/null
+then
+    echo
+    echo "cartesianMesh command not found, which is required for this case"
+    echo
+    exit 0
+fi
+
+# Create top mesh
+\cp system/punch_top/meshDict system/meshDict
+runApplication -l log.cartesianMesh.punch_top cartesianMesh
+mkdir constant/punch_top
+\mv constant/polyMesh constant/punch_top/
+
+# Create bottom mesh
+\cp system/punch_bottom/meshDict system/meshDict
+runApplication -l log.cartesianMesh.punch_bottom cartesianMesh
+mkdir constant/punch_bottom
+\mv constant/polyMesh constant/punch_bottom/
+
+# Merge sub meshes
+runApplication mergeSubMeshesNew punch_top punch_bottom
+
+# Scale the geometry to metres
+echo "Running transformPoints"
+transformPoints -scale "(0.001 0.001 0.001)" >& log.transformPoints
+
+# Create patches
+runApplication autoPatch 45 -overwrite
+runApplication createPatch -overwrite
+runApplication splitPatch -overwrite
+
+# Remove the sub meshes
+\rm -rf constant/punch_top constant/punch_bottom system/meshDict
+
+# Run the solver
+runApplication solids4Foam
+
+# ----------------------------------------------------------------- end-of-file
+
